@@ -179,7 +179,7 @@ function updateStorage() {
 function getProgramFromTheServer() {
 	//*
 	var xmlhttp=new XMLHttpRequest();
-	xmlhttp.open("GET", 'http://kadbudapest.hu/cachemeteo/cacheProgram.php');
+	xmlhttp.open("GET", 'https://kadbudapest.hu/cachemeteo/cacheProgram.php');
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState === 4) {
 			if(xmlhttp.status === 200){
