@@ -1,0 +1,149 @@
+html, body {
+    height:100%;
+}
+
+body {
+	margin: 0;
+	color: white;
+    font-family: sans-serif;
+}
+
+#title-header {
+	padding: 0.1em;
+	background-color: #333354;
+	width: 100%;
+}
+
+#vereb {
+    position: relative;
+    float: left;
+    width: 25%;
+    height: 20px;
+}
+
+#title-header-title {
+	position: relative;
+    width: 50%;
+    text-align: center;
+    display: inline-block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#title-header-title h1 {
+    font-size: 2.5em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#datewrap {
+	padding: 0 2em;
+	box-sizing: border-box;
+	position: relative;
+    float: right;
+    width: 25%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: right;
+}
+
+#clockdategsz {
+	font-size: 1.5em;
+}
+
+#clockdate {
+	font-size: 1.1em;
+}
+
+#clockwrap {
+    padding: 0 2em;
+    box-sizing: border-box;
+	position: relative;
+    float: left;
+    width: 25%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+h2#clockheading {
+	font-size: 2.5em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#title-header-title h1 {
+	color: white;
+}
+
+#actualwrap {
+    box-sizing: border-box;
+    border-left: 20px solid #333354;
+    border-bottom: 20px solid #333354;
+    border-right: 20px solid #333354;
+}
+
+.clearfix{
+	display: inline-block;
+}
+
+.clearfix::after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.programitem {
+	padding: 1em;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.programitem:nth-child(2n) {
+	background-color: #2b4567;
+}
+
+.programitem:nth-child(2n+1) {
+	background-color: #345580;
+}
+
+.programtitle{
+	font-weight: bold;
+    font-size: 2em;
+    display: inline-block;
+    float: left;
+    padding-left: 1em;
+}
+
+.programtime-start {
+	font-size: 2em;
+	display: inline-block;
+	float: left;
+	width: 2.8em;
+}
+
+.programtime-end {
+	font-size: 1em;
+	display: inline-block;
+	float: left;
+	width: 6em;
+}
+
+.programloc {
+	font-size: 2em;
+	display: inline-block;
+	float: left;
+	width: 10em;
+}
+
+.programdesc{
+	background-color: #ABABAB;
+	padding: 8px;
+	text-transform: none;
+}
+
+#moff {
+
+}
+
+#titdfle {
+
+}
