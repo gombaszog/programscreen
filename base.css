@@ -71,3 +71,7 @@ html,body{
 .items:nth-child(2n+1) {
 	background-color: rgba(0,0,0,.5);
 }
+
+.alert{
+  background-color: red;
+}

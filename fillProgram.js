@@ -1,10 +1,10 @@
 var programData;
-
+var alertdata = [];
 var programOpen = {};
 
 function fillZeros(st){
 	if((st.toString().length)<2) {
-		console.log("0" + st.toString());
+		//console.log("0" + st.toString());
 		return "0" + st.toString();
 	}
 	return st;
@@ -25,6 +25,13 @@ function init() {
 	renderPrograms();
 }
 
+function CheckOldWithNew(newData, oldData){
+	for (var i = 1; i<newData.program.length; i++){
+		if (newData.title != oldData.title || newData.description != oldData.description || newData.start != oldData.start || newData.end != oldData.end || newData.location != oldData.location || newData.partner != oldData.partner){
+			alertdata[i] = 1;
+		}
+	}
+}
 
 
 function renderPrograms() {
@@ -79,7 +86,7 @@ function renderPrograms() {
 				actProgramHeading.removeChild(actProgramHeading.firstChild);
 			}
 			for (var i=0; i < programsToRender.length; i++) {
-				console.log(programsToRender[i].id + programsToRender[i].name + programsToRender[i].description + programsToRender[i].partner + programsToRender[i].location + programsToRender[i].start +  programsToRender[i].end  + false)
+				//console.log(programsToRender[i].id + programsToRender[i].name + programsToRender[i].description + programsToRender[i].partner + programsToRender[i].location + programsToRender[i].start +  programsToRender[i].end  + false)
 				actProgramHeading.appendChild(programItemCreator(programsToRender[i].id, programsToRender[i].name, programsToRender[i].description, programsToRender[i].partner, programsToRender[i].location, new Date(programsToRender[i].start), new Date(programsToRender[i].end), false, programsToRender[i].type));
 			}
 		} else {
@@ -103,7 +110,13 @@ function programItemCreator(id, title, description, organizer, location, start, 
 	var descriptionBox = document.createElement("DIV");
 	var descriptionNode = document.createElement("SPAN");
 
-	mainNode.setAttribute("class", "col-xs-12 items row");
+	if (alertdata[id]){
+		mainNode.setAttribute("class", "col-xs-12 items row alert");
+	}
+	else{
+		mainNode.setAttribute("class", "col-xs-12 items row");
+	}
+
   firstBox.setAttribute("class", "col-md-2 col-xs-4");
 	timeBlock.setAttribute("class",  "col-xs-12 timeblock");
 	locationNode.setAttribute("class", "programloc col-xs-12");
@@ -200,7 +213,9 @@ function initLiveTimeMaintainer() {
 
 function updateStorage() {
 	// clone
+	var tempData = localStorage.gombaProgramData;
 	localStorage.gombaProgramData = JSON.stringify(programData);
+	CheckOldWithNew(programData, tempData);
 }
 
 function getProgramFromTheServer() {
