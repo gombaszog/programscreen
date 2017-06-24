@@ -104,18 +104,18 @@ function programItemCreator(id, title, description, organizer, location, start, 
 	var descriptionNode = document.createElement("SPAN");
 
 	mainNode.setAttribute("class", "col-xs-12 items row");
-  firstBox.setAttribute("class", "col-xs-2");
+  firstBox.setAttribute("class", "col-md-2 col-xs-4");
 	timeBlock.setAttribute("class",  "col-xs-12 timeblock");
 	locationNode.setAttribute("class", "programloc col-xs-12");
 
-	secondBox.setAttribute("class", "col-xs-10");
-	titleNode.setAttribute("class", "col-xs-12 itemtitle");
-	descriptionBox.setAttribute("class", "col-xs-12 itemdescription")
+	secondBox.setAttribute("class", "col-md-10 col-xs-8");
+	titleNode.setAttribute("class", "col-md-12 itemtitle");
+	descriptionBox.setAttribute("class", "col-md-12 itemdescription")
 	descriptionNode.setAttribute("class", "");
 
 	timeStartNode.setAttribute("class", "programtime-start");
 	timeEndNode.setAttribute("class", "programtime-end");
-	yellowNode.setAttribute("class", "col-xs-12 yellownode " + type);
+	yellowNode.setAttribute("class", "col-md-12 yellownode " + type);
 
 
 
