@@ -92,31 +92,37 @@ function renderPrograms() {
 
 function programItemCreator(id, title, description, organizer, location, start, end, lookOpen, type){
 	var mainNode = document.createElement("DIV");
-	mainNode.setAttribute("class", "programitem clearfix");
+	mainNode.setAttribute("class", "programitem items row");
 	var yellowNode = document.createElement("DIV");
 	yellowNode.setAttribute("class", "yellownode " + type);
 	var titleNode = document.createElement("DIV");
-	titleNode.setAttribute("class", "programtitle");
+	titleNode.setAttribute("class", "programtitle row col-xs-12 col-sm-4 bold");
 	titleNode.innerHTML = title;
-	var timeStartNode = document.createElement("DIV");
-	timeStartNode.setAttribute("class", "programtime-start");
-	var timeEndNode = document.createElement("DIV");
+	var timeStartNode = document.createElement("SPAN");
+	timeStartNode.setAttribute("class", "programtime-start bold");
+	var timeEndNode = document.createElement("SPAN");
 	timeEndNode.setAttribute("class", "programtime-end");
 	var locationNode = document.createElement("DIV");
-	locationNode.setAttribute("class", "programloc");
+	locationNode.setAttribute("class", "programloc col-xs-12  col-sm-6");
+	var firstBlock = document.createElement("DIV");
+	firstBlock.setAttribute("class", "row col-xs-12 col-sm-8") //time + location
+	var timeBlock = document.createElement("DIV");
+	timeBlock.setAttribute("class", "row col-xs-12 col-sm-6"); //time start + end
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getUTCMinutes());
 	var endShow = ((new Date(end-start)).getUTCMinutes() === 1)?"":" - " + fillZeros(end.getHours()) + ":" + fillZeros(end.getUTCMinutes());
 	var locShow = location ? location : "&nbsp;";
 	var orgShow = (organizer?" - " + organizer:"");
 	mainNode.appendChild(yellowNode);
+	mainNode.appendChild(firstBlock);
 	timeStartNode.innerHTML = startShow;
-	mainNode.appendChild(timeStartNode);
-	timeEndNode.innerHTML = endShow;	
-	mainNode.appendChild(timeEndNode);
-	locationNode.innerHTML = locShow;	
-	mainNode.appendChild(locationNode);
+	firstBlock.appendChild(timeBlock);
+	timeBlock.appendChild(timeStartNode);
+	timeEndNode.innerHTML = endShow;
+	timeBlock.appendChild(timeEndNode);
+	locationNode.innerHTML = locShow;
+	firstBlock.appendChild(locationNode);
 	mainNode.appendChild(titleNode);
-	
+
 	return mainNode;
 }
 
@@ -208,7 +214,7 @@ function getProgramFromTheServer() {
 
 	    // Tell jQuery we're expecting JSONP
 	    dataType: "jsonp",
-	 
+
 	    // Work with the response
 	    success: function( response ) {
 	        console.log( response ); // server response
