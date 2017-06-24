@@ -92,36 +92,55 @@ function renderPrograms() {
 
 function programItemCreator(id, title, description, organizer, location, start, end, lookOpen, type){
 	var mainNode = document.createElement("DIV");
-	mainNode.setAttribute("class", "programitem items row");
-	var yellowNode = document.createElement("DIV");
-	yellowNode.setAttribute("class", "yellownode " + type);
-	var titleNode = document.createElement("DIV");
-	titleNode.setAttribute("class", "programtitle row col-xs-12 col-sm-4 bold");
-	titleNode.innerHTML = title;
-	var timeStartNode = document.createElement("SPAN");
-	timeStartNode.setAttribute("class", "programtime-start bold");
-	var timeEndNode = document.createElement("SPAN");
-	timeEndNode.setAttribute("class", "programtime-end");
+	var firstBox = document.createElement("DIV");
 	var locationNode = document.createElement("DIV");
-	locationNode.setAttribute("class", "programloc col-xs-12  col-sm-6");
-	var firstBlock = document.createElement("DIV");
-	firstBlock.setAttribute("class", "row col-xs-12 col-sm-8") //time + location
+	var yellowNode = document.createElement("DIV");
 	var timeBlock = document.createElement("DIV");
-	timeBlock.setAttribute("class", "row col-xs-12 col-sm-6"); //time start + end
+	var timeStartNode = document.createElement("SPAN");
+	var timeEndNode = document.createElement("SPAN");
+	var secondBox = document.createElement("DIV");
+	var titleNode = document.createElement("DIV");
+	var descriptionBox = document.createElement("DIV");
+	var descriptionNode = document.createElement("SPAN");
+
+	mainNode.setAttribute("class", "col-xs-12 items row");
+  firstBox.setAttribute("class", "col-xs-2");
+	timeBlock.setAttribute("class",  "col-xs-12 timeblock");
+	locationNode.setAttribute("class", "programloc col-xs-12");
+
+	secondBox.setAttribute("class", "col-xs-10");
+	titleNode.setAttribute("class", "col-xs-12 itemtitle");
+	descriptionBox.setAttribute("class", "col-xs-12 itemdescription")
+	descriptionNode.setAttribute("class", "");
+
+	timeStartNode.setAttribute("class", "programtime-start");
+	timeEndNode.setAttribute("class", "programtime-end");
+	yellowNode.setAttribute("class", "col-xs-12 yellownode " + type);
+
+
+
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getUTCMinutes());
 	var endShow = ((new Date(end-start)).getUTCMinutes() === 1)?"":" - " + fillZeros(end.getHours()) + ":" + fillZeros(end.getUTCMinutes());
 	var locShow = location ? location : "&nbsp;";
 	var orgShow = (organizer?" - " + organizer:"");
-	mainNode.appendChild(yellowNode);
-	mainNode.appendChild(firstBlock);
-	timeStartNode.innerHTML = startShow;
-	firstBlock.appendChild(timeBlock);
+
+	mainNode.appendChild(firstBox);
+	firstBox.appendChild(timeBlock);
+	firstBox.appendChild(locationNode);
+	firstBox.appendChild(yellowNode);
 	timeBlock.appendChild(timeStartNode);
-	timeEndNode.innerHTML = endShow;
 	timeBlock.appendChild(timeEndNode);
-	locationNode.innerHTML = locShow;
-	firstBlock.appendChild(locationNode);
-	mainNode.appendChild(titleNode);
+	mainNode.appendChild(secondBox);
+	secondBox.appendChild(titleNode);
+	secondBox.appendChild(descriptionBox);
+	descriptionBox.appendChild(descriptionNode);
+
+	titleNode.innerHTML = title;
+	timeStartNode.innerHTML = startShow;
+	timeEndNode.innerHTML = endShow;
+  locationNode.innerHTML = locShow;
+	descriptionNode.innerHTML = description;
+
 
 	return mainNode;
 }
@@ -156,12 +175,13 @@ function dotw(cday){ // day of the week
 
 function initLiveTimeMaintainer() {
 	var startDate = new Date("2017-07-08T00:01:00.000+02:00");
-	var endDate = new Date("2017-07-16T23:59:00.000+02:00");
+	var endDate = new Date("2017-07-08T23:59:00.000+02:00");
 	var now = new Date();
 	document.getElementById("clockheading").innerHTML = fillZeros(now.getHours()) + ":" + fillZeros(now.getMinutes());
 	if (startDate < now && now < endDate) {
 		document.getElementById("clockdategsz").innerHTML = getGDay(now.getUTCDate()).name + ", " + dotw(now.getDay());
-	} else {
+	}
+	else {
 		document.getElementById("clockdategsz").innerHTML = dotw(now.getDay());
 	}
 	document.getElementById("clockdate").innerHTML = now.getFullYear() + ". " + moty(now.getUTCMonth()) + " " +  + now.getUTCDate() + ".";
@@ -170,7 +190,8 @@ function initLiveTimeMaintainer() {
 		document.getElementById("clockheading").innerHTML = fillZeros(now.getHours()) + ":" + fillZeros(now.getMinutes());
 		if (startDate < now && now < endDate) {
 			document.getElementById("clockdategsz").innerHTML = getGDay(now.getUTCDate()).name + ", " + dotw(now.getDay());
-		} else {
+		}
+		else {
 			document.getElementById("clockdategsz").innerHTML = dotw(now.getDay());
 		}
 		document.getElementById("clockdate").innerHTML = now.getFullYear() + ". " + moty(now.getUTCMonth()) + " " +  + now.getUTCDate() + ".";
@@ -228,6 +249,7 @@ function periodicallyRefresh() {
 	// refresh the program data in every 5 minutes
 	setInterval(getProgramFromTheServer, 5*60*1000 + 400);
 }
+
 
 $(function() {
 	init();

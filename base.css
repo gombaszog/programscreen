@@ -1,149 +1,73 @@
-html, body {
-    height:100%;
+h1, h2, h3, h4, h5, h6, div, span, section{
+  margin:0 !important;
+  border:0 !important;
+  padding:0 !important;
 }
 
-body {
-	margin: 0;
-	color: white;
-    font-family: sans-serif;
+html,body{
+  background-color:rgba(91,49,97,0.86) !important;
+  color:white !important;
+  width:100%;
+  text-align: center;
+  font-family: sans-serif !important;
 }
 
-#title-header {
-	padding: 0.1em;
-	background-color: #333354;
-	width: 100%;
+#title-header{
+  padding-bottom:2vh !important;
+  padding-top:2vh !important;
+  border-bottom:2px solid white !important;
+  line-height: 8rem;
+  font-size: 4rem;
 }
 
-#vereb {
-    position: relative;
-    float: left;
-    width: 25%;
-    height: 20px;
+#datewrap{
+  line-height:2rem;
+  font-size:2rem;
 }
 
-#title-header-title {
-	position: relative;
-    width: 50%;
-    text-align: center;
-    display: inline-block;
-    margin-top: 1em;
-    margin-bottom: 1em;
+#clockdategsz{
+  font-weight: bold;
 }
 
-#title-header-title h1 {
-    font-size: 2.5em;
-    margin-top: 0;
-    margin-bottom: 0;
+.timeblock{
+  font-weight: bold;
+  font-size:120%;
 }
 
-#datewrap {
-	padding: 0 2em;
-	box-sizing: border-box;
-	position: relative;
-    float: right;
-    width: 25%;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    text-align: right;
+.itemtitle{
+  text-align: left !important;
+  font-weight: bold;
+  font-size:120%;
 }
 
-#clockdategsz {
-	font-size: 1.5em;
+.itemdescription{
+  white-space: nowrap;
+    overflow: hidden;
+    text-align:right !important;
 }
 
-#clockdate {
-	font-size: 1.1em;
+@keyframes marquee {
+    0%   { transform: translate(100%, 0); }
+    100% { transform: translate(-100%, 0); }
 }
 
-#clockwrap {
-    padding: 0 2em;
-    box-sizing: border-box;
-	position: relative;
-    float: left;
-    width: 25%;
-    margin-top: 1em;
-    margin-bottom: 1em;
+.itemdescription span{
+  display: inline-block;
+    padding-left: 100%;  /* show the marquee just outside the paragraph */
+    animation: marquee 25s linear infinite;
 }
 
-h2#clockheading {
-	font-size: 2.5em;
-    margin-top: 0;
-    margin-bottom: 0;
+.items{
+  border-bottom:1px solid white !important;
+  height:8rem;
+  padding-top:1rem !important;
+  padding-bottom:1rem !important;
 }
 
-#title-header-title h1 {
-	color: white;
+.items:nth-child(2n) {
+	background-color: rgba(0,0,0,.3);
 }
 
-#actualwrap {
-    box-sizing: border-box;
-    border-left: 20px solid #333354;
-    border-bottom: 20px solid #333354;
-    border-right: 20px solid #333354;
-}
-
-.clearfix{
-	display: inline-block;
-}
-
-.clearfix::after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
-}
-
-.programitem {
-	padding: 1em;
-	width: 100%;
-	box-sizing: border-box;
-}
-
-.programitem:nth-child(2n) {
-	background-color: #2b4567;
-}
-
-.programitem:nth-child(2n+1) {
-	background-color: #345580;
-}
-
-.programtitle{
-	font-weight: bold;
-    font-size: 2em;
-    display: inline-block;
-    float: left;
-    padding-left: 1em;
-}
-
-.programtime-start {
-	font-size: 2em;
-	display: inline-block;
-	float: left;
-	width: 2.8em;
-}
-
-.programtime-end {
-	font-size: 1em;
-	display: inline-block;
-	float: left;
-	width: 6em;
-}
-
-.programloc {
-	font-size: 2em;
-	display: inline-block;
-	float: left;
-	width: 10em;
-}
-
-.programdesc{
-	background-color: #ABABAB;
-	padding: 8px;
-	text-transform: none;
-}
-
-#moff {
-
-}
-
-#titdfle {
-
+.items:nth-child(2n+1) {
+	background-color: rgba(0,0,0,.5);
 }
