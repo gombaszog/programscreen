@@ -59,7 +59,7 @@ html,body{
 
 .items{
   border-bottom:1px solid white !important;
-  height:8rem;
+  min-height:8rem;
   padding-top:1rem !important;
   padding-bottom:1rem !important;
 }
@@ -72,6 +72,27 @@ html,body{
 	background-color: rgba(0,0,0,.5);
 }
 
-.alert{
-  background-color: red;
+.typeshow{
+  font-weight: normal;
+  font-variant: small-caps;
+}
+
+#alertprogram{
+  background-color: #00BFF3;
+  border: 1px solid white !important;
+  position: absolute;
+  top:8rem;
+  width:80%;
+  left:10%;
+  z-index: 500;
+  min-height:8rem;
+}
+
+#alertprogram::before{
+  content: "Változás!!";
+  font-size: 180%;
+  text-align: left !important;
+  font-weight: bold;
+  margin-left:5px !important;
+  display:block;
 }
