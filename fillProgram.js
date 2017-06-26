@@ -5,10 +5,10 @@ $(function() {
 });
 
 function init() {
-	//getProgramFromLocalStorage();
+	getProgramFromLocalStorage();
 	getProgramFromTheServer();
   setInterval(function(){
-    if(count == 1){ // 3 == 5 min intervals
+    if(count == 3){ // 3 == 5 min intervals
       count = 0;
       getProgramFromTheServer();
     }
@@ -23,7 +23,7 @@ function init() {
 /*  CONSTANT */
 var days = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 var monthNames = ["január", "február", "március", "április", "május", "június", "július", "augusztus", "szeptember", "október", "november", "december"];
-var serverurl = "http://127.0.0.69/programscreen/program.JSON"; //Where to get the JSON
+var serverurl = "https://gombaszog.sk/api/program"; //Where to get the JSON
 var programData = {};
 var oldProgramData = {};
 var count = 0;
@@ -57,8 +57,7 @@ function initLiveTimeMaintainer(){
 /* RENDER ACTIVE PROGRAMS */
 function renderPrograms(){
   if(programData.program){
-    var now = new Date("2017-07-13T16:50:00.000+02:00");
-    //var now = Date.now();
+    var now = Date.now();
     var programsToRender = [];
     var nowFound = false;
     var morePrograms = 2;
