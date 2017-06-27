@@ -7,20 +7,24 @@
 <meta name="Keywords" content="gombaszög, gombaszog, gombaszögi program">
 <meta name="Description" content="Ez itt a Gombaszög programkijelzője">
 <link rel="stylesheet" href="./base.css">
+<link rel="stylesheet" href="./bootstrap.min.css">
 </head>
-
-<body>
-<div id="title-header">
-	<div id="clockwrap">
-		<div id="clockheadingwrap"><h2 id="clockheading"></h2></div>
-	</div>
-	<div id="title-header-title"><h1>Épp most!</h1></div>
-	<div id="datewrap">
-		<div id="clockdategsz"></div>
-		<div id="clockdate"></div>
-	</div>
-</div>
-<div id="actualwrap">
+<body onload="load();">
+<div class='container-fluid' id="container">
+	<section id="title-header" class="row">
+		<div id="clockwrap" class="col-xs-12 col-sm-4">
+			<h2 id="clockheading"></h2>
+		</div>
+		<div id="title-header-title" class="col-xs-12 col-sm-4">
+			<h2>Épp most!</h2>
+		</div>
+		<div id="datewrap" class="col-xs-12 col-sm-4 row">
+			<div id="clockdategsz" class='headerclock'></div>
+			<div id="clockdate" class='headerclock'></div>
+		</div>
+	</section>
+	<section id="actualwrap" class=''>
+	</section>
 </div>
 
 <script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
