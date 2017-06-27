@@ -17,12 +17,11 @@ html,body{
   padding-top:2vh !important;
   border-bottom:2px solid white !important;
   line-height: 8rem;
-  font-size: 4rem;
+  font-size: 2rem;
 }
 
 #datewrap{
   line-height:2rem;
-  font-size:2rem;
 }
 
 #clockdategsz{
@@ -31,19 +30,25 @@ html,body{
 
 .programtime-start{
   font-weight: bold;
-  font-size:120%;
+  font-size:2rem;
 }
 
 .itemtitle{
   text-align: left !important;
   font-weight: bold;
-  font-size:120%;
+  font-size:2rem;
 }
 
 .itemdescription{
     white-space: nowrap;
     overflow: hidden;
     text-align:left !important;
+    font-size:1.5rem;
+}
+
+.itemdescriptionfull{
+    text-align:left !important;
+    font-size:1.5rem;
 }
 
 @keyframes text {
@@ -90,7 +95,7 @@ html,body{
 
 #alertprogram::before{
   content: "Változás!!";
-  font-size: 180%;
+  font-size: 2rem;
   text-align: left !important;
   font-weight: bold;
   margin-left:5px !important;
