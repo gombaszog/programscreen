@@ -1,8 +1,27 @@
 /* INIT */
-$(function() {
+/*$(function() {
   initLiveTimeMaintainer();
   init();
+  testjs();
 });
+*/
+/* ONLOAD FUNCTION */
+function load(){
+  iframe();
+  if(parameter){
+    if(parameter[0] == "noheader" || parameter[1] == "noheader" || parameter[2] == "noheader"){
+      var deleteDiv = document.getElementById("container");
+      deleteDiv.removeChild(deleteDiv.childNodes[1]);
+    }
+    else{
+      initLiveTimeMaintainer();
+    }
+  }
+  else{
+    initLiveTimeMaintainer();
+  }
+  init();
+}
 
 function init() {
 	getProgramFromLocalStorage();
@@ -18,6 +37,19 @@ function init() {
     }
   }, 60*1000);
 
+}
+
+/* FOR IFRAME PARAMETERS */
+function iframe(){
+  var url = window.location.href;
+  url = url.split("?");
+  if(url[1]){
+    parameter = url[1].split("&");
+  }
+  else{
+    parameter = "";
+  }
+  return parameter;
 }
 
 /*  CONSTANT */
@@ -142,7 +174,17 @@ function programItemCreator(id, title, description, organizer, location, start, 
 	var descriptionNode = document.createElement("SPAN");
 
   if(alert){
+    if(parameter){
+      if(parameter[0] == "noalert" || parameter[1] == "noalert" || parameter[2] == "noalert"){
+        mainNode.setAttribute("id", "program_"+id);
+      }
+      else{
+        mainNode.setAttribute("id", "alertprogram");
+      }
+    }
+    else{
     mainNode.setAttribute("id", "alertprogram");
+    }
   }
   else{
     mainNode.setAttribute("id", "program_"+id);
@@ -179,8 +221,19 @@ function programItemCreator(id, title, description, organizer, location, start, 
 
 	mainNode.appendChild(secondBox);
 	secondBox.appendChild(titleNode);
-	secondBox.appendChild(descriptionBox);
-	descriptionBox.appendChild(descriptionNode);
+
+  if(parameter){
+    if (parameter[0] == "nodescription" || parameter[1] == "nodescription" || parameter[2] == "nodescription" ){
+    }
+    else{
+  	   secondBox.appendChild(descriptionBox);
+  	   descriptionBox.appendChild(descriptionNode);
+    }
+  }
+  else{
+    secondBox.appendChild(descriptionBox);
+    descriptionBox.appendChild(descriptionNode);
+  }
 
   timeStartNode.innerHTML = startShow;
 	timeEndNode.innerHTML = endShow;
