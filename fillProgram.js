@@ -95,7 +95,7 @@ function renderPrograms(){
     var temphour = tempdate.getHours();
     var tempmins = tempdate.getMinutes();
 
-    var now = new Date("2017-07-13T"+temphour+":"+tempmins+":"+tempsec+".000+0200");
+    var now = new Date("2017-07-13T"+fillZeros(temphour)+":"+fillZeros(tempmins)+":"+fillZeros(tempsec)+".000+0200");
     //var now = Date.now();
     var programsToRender = [];
     var nowFound = false;
