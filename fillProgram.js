@@ -9,7 +9,7 @@
 function load(){
   iframe();
   if(parameter){
-    if(parameter[0] == "noheader" || parameter[1] == "noheader" || parameter[2] == "noheader"){
+    if(parameter[0] == "noheader" || parameter[1] == "noheader" || parameter[2] == "noheader" || parameter[3] == "noheader"){
       var deleteDiv = document.getElementById("container");
       deleteDiv.removeChild(deleteDiv.childNodes[1]);
     }
@@ -39,7 +39,9 @@ function init() {
 
 }
 
-/* FOR IFRAME PARAMETERS */
+/* FOR IFRAME PARAMETERS
+parameters: noheader, nodescription, noalert, fulldescription
+*/
 function iframe(){
   var url = window.location.href;
   url = url.split("?");
@@ -55,7 +57,7 @@ function iframe(){
 /*  CONSTANT */
 var days = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 var monthNames = ["január", "február", "március", "április", "május", "június", "július", "augusztus", "szeptember", "október", "november", "december"];
-var serverurl = "http://kadbudapest.hu/gombacache/?type=program"; //Where to get the JSON
+var serverurl = "https://kadbudapest.hu/gombacache/?type=program"; //Where to get the JSON
 var programData = {};
 var oldProgramData = {};
 var count = 0;
@@ -94,8 +96,8 @@ function renderPrograms(){
     var tempsec = tempdate.getSeconds();
     var temphour = tempdate.getHours();
     var tempmins = tempdate.getMinutes();
-
-    var now = new Date("2017-07-13T"+temphour+":"+tempmins+":"+tempsec+".000+0200");
+    var now = new Date("2017-07-13T"+fillZeros(temphour)+":"+fillZeros(tempmins)+":"+fillZeros(tempsec)+".000+0200");
+    console.log(now);
     //var now = Date.now();
     var programsToRender = [];
     var nowFound = false;
@@ -126,7 +128,7 @@ function renderPrograms(){
         nowFound = true;
         continue;
       }
-      if(nowFound && now < startTime && morePrograms > 0){
+      if(/*nowFound &&*/ now < startTime && morePrograms > 0){
         var difi = (startTime-now)/(60*1000);
         if(difi < 50) {
           programData.program[i].type = "hamarosan";
@@ -172,7 +174,7 @@ function programItemCreator(id, title, description, organizer, location, start, 
 	var timeBlock = document.createElement("DIV");
 	var timeStartNode = document.createElement("SPAN");
 	var timeEndNode = document.createElement("SPAN");
-  var organizerNode = document.createElement("DIV");
+  //var organizerNode = document.createElement("DIV");
 
 	var secondBox = document.createElement("DIV");
 	var titleNode = document.createElement("DIV");
@@ -182,7 +184,7 @@ function programItemCreator(id, title, description, organizer, location, start, 
 
   if(alert){
     if(parameter){
-      if(parameter[0] == "noalert" || parameter[1] == "noalert" || parameter[2] == "noalert"){
+      if(parameter[0] == "noalert" || parameter[1] == "noalert" || parameter[2] == "noalert" || parameter[3] == "noalert"){
         mainNode.setAttribute("id", "program_"+id);
       }
       else{
@@ -203,17 +205,16 @@ function programItemCreator(id, title, description, organizer, location, start, 
   timeStartNode.setAttribute("class", "programtime-start");
 	timeEndNode.setAttribute("class", "programtime-end");
   timeBlock.setAttribute("class",  "col-xs-12 timeblock");
-  organizerNode.setAttribute("class", "organizer col-xs-12")
+  //organizerNode.setAttribute("class", "organizer col-xs-12")
 
 	secondBox.setAttribute("class", "col-md-10 col-xs-8");
 	titleNode.setAttribute("class", "col-md-12 itemtitle");
-	descriptionBox.setAttribute("class", "col-md-12 itemdescription")
 	descriptionNode.setAttribute("class", "");
 
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getMinutes());
 	var endShow = ((new Date(end-start)).getMinutes() === 1)?"":" - " + fillZeros(end.getHours()) + ":" + fillZeros(end.getMinutes());
 	var locShow = location ? location : "";
-	var orgShow = organizer? organizer: "";
+	//var orgShow = organizer? organizer: "";
   var typeShow = type? type: "";
   var titleShow = title? title: "";
   var descriptionShow = description? description: "";
@@ -222,7 +223,7 @@ function programItemCreator(id, title, description, organizer, location, start, 
 
 	firstBox.appendChild(timeBlock);
 	firstBox.appendChild(locationNode);
-	firstBox.appendChild(organizerNode);
+	//firstBox.appendChild(organizerNode);
 	timeBlock.appendChild(timeStartNode);
 	timeBlock.appendChild(timeEndNode);
 
@@ -230,22 +231,31 @@ function programItemCreator(id, title, description, organizer, location, start, 
 	secondBox.appendChild(titleNode);
 
   if(parameter){
-    if (parameter[0] == "nodescription" || parameter[1] == "nodescription" || parameter[2] == "nodescription" ){
+    if (parameter[0] == "nodescription" || parameter[1] == "nodescription" || parameter[2] == "nodescription" || parameter[3] == "nodescription"){
     }
+    else if(parameter[0] == "fulldescription" || parameter[1] == "fulldescription" || parameter[2] == "fulldescription" || parameter[3] == "fulldescription"){
+      descriptionBox.setAttribute("class", "col-md-12 itemdescriptionfull")
+      secondBox.appendChild(descriptionBox);
+      descriptionBox.innerHTML = descriptionShow;
+      }
     else{
-  	   secondBox.appendChild(descriptionBox);
-  	   descriptionBox.appendChild(descriptionNode);
+      descriptionBox.setAttribute("class", "col-md-12 itemdescription")
+      secondBox.appendChild(descriptionBox);
+      descriptionBox.appendChild(descriptionNode);
+      descriptionNode.innerHTML = descriptionShow;
     }
   }
   else{
+    descriptionBox.setAttribute("class", "col-md-12 itemdescription")
     secondBox.appendChild(descriptionBox);
     descriptionBox.appendChild(descriptionNode);
+    descriptionNode.innerHTML = descriptionShow;
   }
 
   timeStartNode.innerHTML = startShow;
 	timeEndNode.innerHTML = endShow;
   locationNode.innerHTML = locShow;
-  organizerNode.innerHTML = orgShow;
+  //organizerNode.innerHTML = orgShow;
 
   titleNode.innerHTML = titleShow + " - " + "<span class='typeshow'>" + typeShow + "</span>";
 	descriptionNode.innerHTML = descriptionShow;
