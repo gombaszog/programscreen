@@ -97,7 +97,6 @@ function renderPrograms(){
     var temphour = tempdate.getHours();
     var tempmins = tempdate.getMinutes();
     var now = new Date("2017-07-13T"+fillZeros(temphour)+":"+fillZeros(tempmins)+":"+fillZeros(tempsec)+".000+0200");
-    console.log(now);
     //var now = Date.now();
     var programsToRender = [];
     var nowFound = false;
@@ -145,6 +144,7 @@ function renderPrograms(){
     }
     oldProgramData = {};
     var actProgram = document.getElementById("actualwrap");
+    console.log(programsToRender.length + " program listázása");
     if(programsToRender.length > 0){
       actProgram.style.display = "block";
       while(actProgram.firstChild){
