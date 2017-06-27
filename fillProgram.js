@@ -55,7 +55,7 @@ function iframe(){
 /*  CONSTANT */
 var days = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 var monthNames = ["január", "február", "március", "április", "május", "június", "július", "augusztus", "szeptember", "október", "november", "december"];
-var serverurl = "http://kadbudapest.hu/gombacache/?type=program"; //Where to get the JSON
+var serverurl = "https://kadbudapest.hu/gombacache/?type=program"; //Where to get the JSON
 var programData = {};
 var oldProgramData = {};
 var count = 0;
