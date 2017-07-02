@@ -122,6 +122,7 @@ function renderPrograms(){
           }
         }
       }
+
       if(startTime < now && now < endTime){
         programData.program[i].type = "folyamatban";
         programsToRender.push(programData.program[i]);
@@ -183,6 +184,8 @@ function programItemCreator(id, title, description, organizer, location, start, 
 	var descriptionBox = document.createElement("DIV");
 	var descriptionNode = document.createElement("SPAN");
 
+	var thirdBox = document.createElement("DIV");
+
   if(alert){
     if(parameter){
       if(parameter[0] == "noalert" || parameter[1] == "noalert" || parameter[2] == "noalert" || parameter[3] == "noalert"){
@@ -202,15 +205,17 @@ function programItemCreator(id, title, description, organizer, location, start, 
 
   mainNode.setAttribute("class", "col-xs-12 items row")
   firstBox.setAttribute("class", "col-md-2 col-xs-4");
-	locationNode.setAttribute("class", "programloc col-xs-12");
+	locationNode.setAttribute("class", "location");
   timeStartNode.setAttribute("class", "programtime-start");
 	timeEndNode.setAttribute("class", "programtime-end");
   timeBlock.setAttribute("class",  "col-xs-12 timeblock");
   //organizerNode.setAttribute("class", "organizer col-xs-12")
 
-	secondBox.setAttribute("class", "col-md-10 col-xs-8");
+	secondBox.setAttribute("class", "col-md-8  col-xs-8");
 	titleNode.setAttribute("class", "col-md-12 itemtitle");
 	descriptionNode.setAttribute("class", "");
+
+	thirdBox.setAttribute("class", "col-md-2 col-xs-4")
 
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getMinutes());
 	var endShow = ((new Date(end-start)).getMinutes() === 1)?"":" - " + fillZeros(end.getHours()) + ":" + fillZeros(end.getMinutes());
@@ -223,13 +228,16 @@ function programItemCreator(id, title, description, organizer, location, start, 
 	mainNode.appendChild(firstBox);
 
 	firstBox.appendChild(timeBlock);
-	firstBox.appendChild(locationNode);
+	//firstBox.appendChild(locationNode);
 	//firstBox.appendChild(organizerNode);
 	timeBlock.appendChild(timeStartNode);
 	timeBlock.appendChild(timeEndNode);
 
 	mainNode.appendChild(secondBox);
 	secondBox.appendChild(titleNode);
+
+    mainNode.appendChild(thirdBox);
+    thirdBox.appendChild(locationNode);
 
   if(parameter){
     if (parameter[0] == "nodescription" || parameter[1] == "nodescription" || parameter[2] == "nodescription" || parameter[3] == "nodescription"){
