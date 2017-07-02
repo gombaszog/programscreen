@@ -2,10 +2,14 @@ h1, h2, h3, h4, h5, h6, div, span, section{
   margin:0 !important;
   border:0 !important;
   padding:0 !important;
+  color: #1B1B1B;
+}
+
+h2 {
+  font-size: 4.5vw !important;
 }
 
 html,body{
-  background-color:rgba(91,49,97,0.86) !important;
   color:white !important;
   width:100%;
   text-align: center;
@@ -15,22 +19,36 @@ html,body{
 #title-header{
   padding-bottom:2vh !important;
   padding-top:2vh !important;
-  border-bottom:2px solid white !important;
   line-height: 8rem;
-  font-size: 2rem;
+  font-size: 2vw;
+}
+
+#title-header-title{
+  margin-top: 0.5rem !important;
 }
 
 #datewrap{
-  line-height:2rem;
+  line-height:3.5rem;
 }
 
 #clockdategsz{
   font-weight: bold;
+  color: #1B1B1B;
+  font-size: 2vw;
 }
 
 .programtime-start{
   font-weight: bold;
-  font-size:2rem;
+  font-size:3rem;
+}
+
+.programtime-end{
+    font-size:2rem;
+}
+
+.location{
+    font-weight: bold;
+    font-size:3rem;
 }
 
 .itemtitle{
@@ -101,3 +119,8 @@ html,body{
   margin-left:5px !important;
   display:block;
 }
+
+#divider{
+  padding-bottom: 0.5em !important;
+}
+
