@@ -1,3 +1,18 @@
+html,
+body,
+.view {
+  height: 100%;
+}
+
+.view {
+  background: url("images/background.jpg")no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
 h1, h2, h3, h4, h5, h6, div, span, section{
   margin:0 !important;
   border:0 !important;
@@ -46,15 +61,31 @@ html,body{
     font-size:2rem;
 }
 
-.location{
+.folyamatban{
+    animation: blinker 1s linear infinite;
+}
+
+.location {
     font-weight: bold;
-    font-size:3rem;
+    font-size: 2.3rem;
+}
+
+.partner{
+    font-weight: bold;
+    font-size:2.3rem;
 }
 
 .itemtitle{
   text-align: left !important;
   font-weight: bold;
-  font-size:2rem;
+  font-size:2.3rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
 }
 
 .itemdescription{
@@ -81,18 +112,17 @@ html,body{
 }
 
 .items{
-  border-bottom:1px solid white !important;
   min-height:8rem;
   padding-top:1rem !important;
   padding-bottom:1rem !important;
 }
 
 .items:nth-child(2n) {
-	background-color: rgba(0,0,0,.3);
+	background-color: rgba(255,255,255,0.9);
 }
 
 .items:nth-child(2n+1) {
-	background-color: rgba(0,0,0,.5);
+	background-color: rgba(192,192,192,0.8);
 }
 
 .typeshow{
@@ -124,3 +154,6 @@ html,body{
   padding-bottom: 0.5em !important;
 }
 
+@keyframes blinker {
+    50% { opacity: 0; }
+}
