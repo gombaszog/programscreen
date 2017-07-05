@@ -174,6 +174,7 @@ function renderPrograms(){
       alertdiv.setAttribute("id", "program");
     }
   }, 10*1000);
+  blinker();
 }
 
 /* PROGRAM ITEM ROW CREATEOR */
@@ -213,20 +214,24 @@ function programItemCreator(id, title, description, partner, location, start, en
     mainNode.setAttribute("id", "program_"+id);
   }
 
-  mainNode.setAttribute("class", "col-xs-12 items row")
+  mainNode.setAttribute("class", "col-xs-12 items row");
   firstBox.setAttribute("class", "col-md-2 col-xs-4");
 	locationNode.setAttribute("class", "location");
   timeStartNode.setAttribute("class", "programtime-start");
 	timeEndNode.setAttribute("class", "programtime-end");
   timeBlock.setAttribute("class",  "col-xs-12 timeblock");
   partnerNode.setAttribute("class", "partner")
-
 	secondBox.setAttribute("class", "col-md-5  col-xs-4");
 	titleNode.setAttribute("class", "col-md-12 itemtitle");
 	descriptionNode.setAttribute("class", "");
 
 	thirdBox.setAttribute("class", "col-md-3 col-xs-4");
     //fourthBox.setAttribute("class", "col-md-3 col-xs-4)
+
+ if(type=="folyamatban") {
+    timeStartNode.setAttribute("class", "programtime-start running"); 
+    timeEndNode.setAttribute("class", "programtime-end running");
+  }
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getMinutes());
 	var endShow = ((new Date(end-start)).getMinutes() === 1)?"":" - " + fillZeros(end.getHours()) + ":" + fillZeros(end.getMinutes());
 	var locShow = location ? location : "";
@@ -326,8 +331,3 @@ function getProgramFromTheServer(){
   xmlhttp.send();
 }
 
-/* BLINK FUNCTION */
-function blinker()
-{
-
-}

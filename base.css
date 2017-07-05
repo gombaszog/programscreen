@@ -154,6 +154,10 @@ html,body{
   padding-bottom: 0.5em !important;
 }
 
+.running{
+  animation: blinker 2s linear infinite;
+}
+
 @keyframes blinker {
-    50% { opacity: 0; }
+    50% { color: #ee3a24; }
 }
