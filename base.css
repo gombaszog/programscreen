@@ -67,12 +67,12 @@ html,body{
 
 .location {
     font-weight: bold;
-    font-size: 2.3rem;
+    font-size: 1.8rem;
 }
 
 .partner{
     font-weight: bold;
-    font-size:2.3rem;
+    font-size:1.8rem;
 }
 
 .itemtitle{
@@ -107,8 +107,15 @@ html,body{
 
 .itemdescription span{
   display: inline-block;
+  text-indent: 0;
   padding-left: 100%;  /* show the marquee just outside the paragraph */
-  animation: text 25s linear infinite;
+  animation: marquee 15s linear infinite;
+}
+
+/* Make it move */
+@keyframes marquee {
+    from  { text-indent:  100% }
+    to    { text-indent: -100% }
 }
 
 .items{
@@ -131,7 +138,7 @@ html,body{
 }
 
 #alertprogram{
-  background-color: #00BFF3;
+  background-color: #ffff00;
   border: 1px solid white !important;
   position: absolute;
   top:8rem;

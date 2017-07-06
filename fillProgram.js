@@ -106,7 +106,7 @@ function renderPrograms(){
 
     //var now = new Date("2017-07-15T"+fillZeros(temphour)+":"+fillZeros(tempmins)+":"+fillZeros(tempsec)+".000+0200");
     //var now = Date.now();
-    var now = new Date("2017-07-12T12:00:00.000+02:00");
+    var now = new Date("2017-07-12T16:00:00.000+02:00");
     var programsToRender = [];
     var nowFound = false;
     var morePrograms = 2;
@@ -221,12 +221,12 @@ function programItemCreator(id, title, description, partner, location, start, en
 	timeEndNode.setAttribute("class", "programtime-end");
   timeBlock.setAttribute("class",  "col-xs-12 timeblock");
   partnerNode.setAttribute("class", "partner")
-	secondBox.setAttribute("class", "col-md-5  col-xs-4");
+	secondBox.setAttribute("class", "col-md-6  col-xs-4");
 	titleNode.setAttribute("class", "col-md-12 itemtitle");
 	descriptionNode.setAttribute("class", "");
 
-	thirdBox.setAttribute("class", "col-md-3 col-xs-4");
-    //fourthBox.setAttribute("class", "col-md-3 col-xs-4)
+	thirdBox.setAttribute("class", "col-md-4 col-xs-4");
+
 
  if(type=="folyamatban") {
     timeStartNode.setAttribute("class", "programtime-start running"); 
