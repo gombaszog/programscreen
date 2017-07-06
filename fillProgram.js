@@ -26,7 +26,13 @@ function load(){
 function init() {
 	getProgramFromLocalStorage();
 	getProgramFromTheServer();
-  setInterval(function(){
+    // refresh the screen in every minute
+    setInterval(renderPrograms, 60*1000);
+    // refresh the program data in every 5 minutes
+    setInterval(getProgramFromTheServer, 5*60*1000 + 400);
+
+    /*
+    setInterval(function(){
     if(count == 3){ // 3 == 5 min intervals
       count = 0;
       getProgramFromTheServer();
@@ -36,7 +42,7 @@ function init() {
       renderPrograms();
     }
   }, 60*1000);
-
+*/
 }
 
 /* FOR IFRAME PARAMETERS
@@ -57,7 +63,7 @@ function iframe(){
 /*  CONSTANT */
 var days = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 var monthNames = ["január", "február", "március", "április", "május", "június", "július", "augusztus", "szeptember", "október", "november", "december"];
-var serverurl = "https://kadbudapest.hu/gombacache/?type=program"; //Where to get the JSON
+var serverurl = "https://www.gombaszog.sk/api/program"; //Where to get the JSON
 var programData = {};
 var oldProgramData = {};
 var count = 0;
@@ -92,13 +98,15 @@ function initLiveTimeMaintainer(){
 function renderPrograms(){
   if(programData.program){
     /* FOR TEST */
+
     var tempdate = new Date();
     var tempsec = tempdate.getSeconds();
     var temphour = tempdate.getHours();
     var tempmins = tempdate.getMinutes();
 
-    var now = new Date("2017-07-13T"+fillZeros(temphour)+":"+fillZeros(tempmins)+":"+fillZeros(tempsec)+".000+0200");
+    //var now = new Date("2017-07-15T"+fillZeros(temphour)+":"+fillZeros(tempmins)+":"+fillZeros(tempsec)+".000+0200");
     //var now = Date.now();
+    var now = new Date("2017-07-12T16:00:00.000+02:00");
     var programsToRender = [];
     var nowFound = false;
     var morePrograms = 2;
@@ -132,10 +140,10 @@ function renderPrograms(){
       if(/*nowFound &&*/ now < startTime && morePrograms > 0){
         var difi = (startTime-now)/(60*1000);
         if(difi < 50) {
-          programData.program[i].type = "hamarosan";
+        programData.program[i].type = "hamarosan";
         }
         else {
-          programData.program[i].type = "később"
+        programData.program[i].type = "később"
         }
         programsToRender.push(programData.program[i]);
         morePrograms--;
@@ -166,17 +174,18 @@ function renderPrograms(){
       alertdiv.setAttribute("id", "program");
     }
   }, 10*1000);
+  blinker();
 }
 
 /* PROGRAM ITEM ROW CREATEOR */
-function programItemCreator(id, title, description, organizer, location, start, end, alert, type){
+function programItemCreator(id, title, description, partner, location, start, end, alert, type){
 	var mainNode = document.createElement("DIV");
 	var firstBox = document.createElement("DIV");
 	var locationNode = document.createElement("DIV");
 	var timeBlock = document.createElement("DIV");
 	var timeStartNode = document.createElement("SPAN");
 	var timeEndNode = document.createElement("SPAN");
-  //var organizerNode = document.createElement("DIV");
+    var partnerNode = document.createElement("DIV");
 
 	var secondBox = document.createElement("DIV");
 	var titleNode = document.createElement("DIV");
@@ -185,6 +194,8 @@ function programItemCreator(id, title, description, organizer, location, start, 
 	var descriptionNode = document.createElement("SPAN");
 
 	var thirdBox = document.createElement("DIV");
+
+	var fourthBox = document.createElement("DIV");
 
   if(alert){
     if(parameter){
@@ -203,24 +214,28 @@ function programItemCreator(id, title, description, organizer, location, start, 
     mainNode.setAttribute("id", "program_"+id);
   }
 
-  mainNode.setAttribute("class", "col-xs-12 items row")
+  mainNode.setAttribute("class", "col-xs-12 items row");
   firstBox.setAttribute("class", "col-md-2 col-xs-4");
 	locationNode.setAttribute("class", "location");
   timeStartNode.setAttribute("class", "programtime-start");
 	timeEndNode.setAttribute("class", "programtime-end");
   timeBlock.setAttribute("class",  "col-xs-12 timeblock");
-  //organizerNode.setAttribute("class", "organizer col-xs-12")
-
-	secondBox.setAttribute("class", "col-md-8  col-xs-8");
+  partnerNode.setAttribute("class", "partner")
+	secondBox.setAttribute("class", "col-md-6  col-xs-4");
 	titleNode.setAttribute("class", "col-md-12 itemtitle");
 	descriptionNode.setAttribute("class", "");
 
-	thirdBox.setAttribute("class", "col-md-2 col-xs-4")
+	thirdBox.setAttribute("class", "col-md-4 col-xs-4");
 
+
+ if(type=="folyamatban") {
+    timeStartNode.setAttribute("class", "programtime-start running"); 
+    timeEndNode.setAttribute("class", "programtime-end running");
+  }
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getMinutes());
 	var endShow = ((new Date(end-start)).getMinutes() === 1)?"":" - " + fillZeros(end.getHours()) + ":" + fillZeros(end.getMinutes());
 	var locShow = location ? location : "";
-	//var orgShow = organizer? organizer: "";
+	var partnerShow = partner ? partner: "";
   var typeShow = type? type: "";
   var titleShow = title? title: "";
   var descriptionShow = description? description: "";
@@ -228,8 +243,7 @@ function programItemCreator(id, title, description, organizer, location, start, 
 	mainNode.appendChild(firstBox);
 
 	firstBox.appendChild(timeBlock);
-	//firstBox.appendChild(locationNode);
-	//firstBox.appendChild(organizerNode);
+
 	timeBlock.appendChild(timeStartNode);
 	timeBlock.appendChild(timeEndNode);
 
@@ -238,6 +252,9 @@ function programItemCreator(id, title, description, organizer, location, start, 
 
     mainNode.appendChild(thirdBox);
     thirdBox.appendChild(locationNode);
+
+    mainNode.appendChild(fourthBox);
+    fourthBox.appendChild(partnerNode);
 
   if(parameter){
     if (parameter[0] == "nodescription" || parameter[1] == "nodescription" || parameter[2] == "nodescription" || parameter[3] == "nodescription"){
@@ -264,9 +281,8 @@ function programItemCreator(id, title, description, organizer, location, start, 
   timeStartNode.innerHTML = startShow;
 	timeEndNode.innerHTML = endShow;
   locationNode.innerHTML = locShow;
-  //organizerNode.innerHTML = orgShow;
-
-  titleNode.innerHTML = titleShow + " - " + "<span class='typeshow'>" + typeShow + "</span>";
+partnerNode.innerHTML = partnerShow;
+  titleNode.innerHTML = titleShow; /*+ " - " + "<span class='typeshow'>" + typeShow + "</span>";*/
 	descriptionNode.innerHTML = descriptionShow;
 
 	return mainNode;
@@ -314,3 +330,4 @@ function getProgramFromTheServer(){
   }
   xmlhttp.send();
 }
+
