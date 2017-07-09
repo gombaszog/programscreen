@@ -161,7 +161,7 @@ function renderPrograms(){
         actProgram.removeChild(actProgram.firstChild);
       }
       for(var i=0; i < programsToRender.length; i++){
-        actProgram.appendChild(programItemCreator(programsToRender[i].id, programsToRender[i].name, programsToRender[i].description, programsToRender[i].partner, programsToRender[i].location, new Date(programsToRender[i].start), new Date(programsToRender[i].end), programsToRender[i].alert, programsToRender[i].type));
+        actProgram.appendChild(programItemCreator(programsToRender[i].id, programsToRender[i].name, programsToRender[i].description, programsToRender[i].partner, programsToRender[i].location, new Date(programsToRender[i].start), new Date(programsToRender[i].end), false, programsToRender[i].type));
       }
     }
     else{
@@ -229,7 +229,7 @@ function programItemCreator(id, title, description, partner, location, start, en
 
 
  if(type=="folyamatban") {
-    timeStartNode.setAttribute("class", "programtime-start running"); 
+    timeStartNode.setAttribute("class", "programtime-start running");
     timeEndNode.setAttribute("class", "programtime-end running");
   }
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getMinutes());
@@ -330,4 +330,3 @@ function getProgramFromTheServer(){
   }
   xmlhttp.send();
 }
-
