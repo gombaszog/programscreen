@@ -137,6 +137,7 @@ function renderPrograms(){
         nowFound = true;
         continue;
       }
+        
       if(/*nowFound &&*/ now < startTime && morePrograms > 0){
         var difi = (startTime-now)/(60*1000);
         if(difi < 50) {
@@ -216,29 +217,29 @@ function programItemCreator(id, title, description, partner, location, start, en
 
   mainNode.setAttribute("class", "col-xs-12 items row");
   firstBox.setAttribute("class", "col-md-2 col-xs-4");
-	locationNode.setAttribute("class", "location");
+  locationNode.setAttribute("class", "location");
   timeStartNode.setAttribute("class", "programtime-start");
-	timeEndNode.setAttribute("class", "programtime-end");
+  timeEndNode.setAttribute("class", "programtime-end");
   timeBlock.setAttribute("class",  "col-xs-12 timeblock");
   partnerNode.setAttribute("class", "partner")
-	secondBox.setAttribute("class", "col-md-6  col-xs-4");
-	titleNode.setAttribute("class", "col-md-12 itemtitle");
-	descriptionNode.setAttribute("class", "");
-
-	thirdBox.setAttribute("class", "col-md-4 col-xs-4");
+  secondBox.setAttribute("class", "col-md-6  col-xs-4");
+  titleNode.setAttribute("class", "col-md-12 itemtitle");
+  descriptionNode.setAttribute("class", "");
+  thirdBox.setAttribute("class", "col-md-4 col-xs-4");
 
 
  if(type=="folyamatban") {
     timeStartNode.setAttribute("class", "programtime-start running");
     timeEndNode.setAttribute("class", "programtime-end running");
   }
+
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getMinutes());
 	var endShow = ((new Date(end-start)).getMinutes() === 1)?"":" - " + fillZeros(end.getHours()) + ":" + fillZeros(end.getMinutes());
 	var locShow = location ? location : "";
 	var partnerShow = partner ? partner: "";
-  var typeShow = type? type: "";
-  var titleShow = title? title: "";
-  var descriptionShow = description? description: "";
+    var typeShow = type? type: "";
+    var titleShow = title? title: "";
+    var descriptionShow = description? description: "";
 
 	mainNode.appendChild(firstBox);
 
