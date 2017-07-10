@@ -110,7 +110,7 @@ html,body{
   display: inline-block;
   text-indent: 0;
   padding-left: 100%;  /* show the marquee just outside the paragraph */
-  animation: marquee 15s linear infinite;
+  animation: marquee 35s linear infinite;
 }
 
 /* Make it move */
