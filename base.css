@@ -68,12 +68,12 @@ html,body{
 
 .location {
     font-weight: bold;
-    font-size: 2.4rem;
+    font-size: 2.6rem;
 }
 
 .partner{
     font-weight: bold;
-    font-size:2.4rem;
+    font-size:2.6rem;
 }
 
 .itemtitle{
@@ -167,5 +167,5 @@ html,body{
 }
 
 @keyframes blinker {
-    50% { color: #ee3a24; }
+    60% { color: #ee3a24; }
 }

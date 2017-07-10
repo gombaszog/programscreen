@@ -105,10 +105,10 @@ function renderPrograms(){
     var tempmins = tempdate.getMinutes();
 
     //var now = new Date("2017-07-15T"+fillZeros(temphour)+":"+fillZeros(tempmins)+":"+fillZeros(tempsec)+".000+0200");
-    //var now = Date.now();
-    var now = new Date("2017-07-12T16:00:00.000+02:00");
+    var now = Date.now();
+    //var now = new Date("2017-07-10T13:30:00.000+02:00");
     var programsToRender = [];
-    var nowFound = false;
+    //var nowFound = true;
     var morePrograms = 2;
     for(var i=0; i<programData.program.length; i++){
       programData.program[i].alert = false;
@@ -134,11 +134,16 @@ function renderPrograms(){
       if(startTime < now && now < endTime){
         programData.program[i].type = "folyamatban";
         programsToRender.push(programData.program[i]);
-        nowFound = true;
+        //nowFound = true;
         continue;
       }
-        
-      if(/*nowFound &&*/ now < startTime && morePrograms > 0){
+
+      if  ((endTime.getHours()+(endTime.getMinutes()/60)-(startTime.getHours()+(startTime.getMinutes()/60))) >  2){
+        programData.program[i].type = "hosszuprogram";
+        console.log(i);
+      }
+
+      if(now < startTime && morePrograms > 0){
         var difi = (startTime-now)/(60*1000);
         if(difi < 50) {
         programData.program[i].type = "hamarosan";
@@ -147,9 +152,9 @@ function renderPrograms(){
         programData.program[i].type = "később"
         }
         programsToRender.push(programData.program[i]);
-        morePrograms--;
+        //morePrograms--;
       }
-      if(morePrograms === 0){
+      if(morePrograms == 0){
         break;
       }
     }
@@ -175,7 +180,6 @@ function renderPrograms(){
       alertdiv.setAttribute("id", "program");
     }
   }, 10*1000);
-  blinker();
 }
 
 /* PROGRAM ITEM ROW CREATEOR */
@@ -231,7 +235,7 @@ function programItemCreator(id, title, description, partner, location, start, en
  if(type=="folyamatban") {
     timeStartNode.setAttribute("class", "programtime-start running");
     timeEndNode.setAttribute("class", "programtime-end running");
-  }
+     }
 
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getMinutes());
 	var endShow = ((new Date(end-start)).getMinutes() === 1)?"":" - " + fillZeros(end.getHours()) + ":" + fillZeros(end.getMinutes());
@@ -280,11 +284,11 @@ function programItemCreator(id, title, description, partner, location, start, en
   }
 
   timeStartNode.innerHTML = startShow;
-	timeEndNode.innerHTML = endShow;
+  timeEndNode.innerHTML = endShow;
   locationNode.innerHTML = locShow;
-partnerNode.innerHTML = partnerShow;
+  partnerNode.innerHTML = partnerShow;
   titleNode.innerHTML = titleShow; /*+ " - " + "<span class='typeshow'>" + typeShow + "</span>";*/
-	descriptionNode.innerHTML = descriptionShow;
+  descriptionNode.innerHTML = descriptionShow;
 
 	return mainNode;
 }
