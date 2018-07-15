@@ -15,12 +15,30 @@ function load(){
     }
     else{
       initLiveTimeMaintainer();
+      if(parameter[0] == 'kocsma'){
+        changeBox();
+      }
     }
   }
   else{
     initLiveTimeMaintainer();
   }
   init();
+}
+
+
+function changeBox(){
+  setInterval(function(){
+    document.getElementById('kocsma').setAttribute('style', 'display:none;');
+    document.getElementById('container').setAttribute('style', 'display:block;');
+    }, 7000
+  );
+  setInterval(function(){
+    document.getElementById('container').setAttribute('style', 'display:none;');
+    document.getElementById('kocsma').setAttribute('style', 'display:block;');
+    }, 11000
+  )
+
 }
 
 function init() {
