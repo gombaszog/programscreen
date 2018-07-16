@@ -26,19 +26,45 @@ function load(){
   init();
 }
 
+var counter = 0;
+
+function showContainer() {
+    document.getElementById('kocsma_1').setAttribute('style', 'display:none;');
+    document.getElementById('kocsma_2').setAttribute('style', 'display:none;');
+    document.getElementById('container').setAttribute('style', 'display:block;');
+}
+
+function showKocsma1() {
+    document.getElementById('container').setAttribute('style', 'display:none;')
+    document.getElementById('kocsma_2').setAttribute('style', 'display:none;');
+    document.getElementById('kocsma_1').setAttribute('style', 'display:block; padding:18px !important; background-color: rgba(255,255,255,.7); overflow-y: hidden; height:200%;');  
+}
+
+function showKocsma2() {
+    document.getElementById('container').setAttribute('style', 'display:none;')
+    document.getElementById('kocsma_1').setAttribute('style', 'display:none;');
+    document.getElementById('kocsma_2').setAttribute('style', 'display:block; padding:18px !important; background-color: rgba(255,255,255,.7); overflow-y: hidden; height:200%;');  
+}
 
 function changeBox(){
   setInterval(function(){
-    document.getElementById('kocsma').setAttribute('style', 'display:none;');
-    document.getElementById('container').setAttribute('style', 'display:block;');
-    }, 7000
-  );
-  setInterval(function(){
-    document.getElementById('container').setAttribute('style', 'display:none;');
-    document.getElementById('kocsma').setAttribute('style', 'display:block;');
-    }, 11000
-  )
-
+    counter++;
+    if (counter > 36) {
+      counter = 0;
+    }
+    if (counter === 0) {
+      showContainer();
+    }
+    if (counter === 10) {
+      showKocsma1();
+    }
+    if (counter === 18) {
+      showContainer();
+    }
+    if (counter === 28) {
+      showKocsma2();
+    }
+  }, 1000);
 }
 
 function init() {
