@@ -71,9 +71,9 @@ function init() {
 	getProgramFromLocalStorage();
 	getProgramFromTheServer();
     // refresh the screen in every minute
-    setInterval(renderPrograms, 60*1000);
+    setInterval(renderPrograms, 5*60*1000);
     // refresh the program data in every 5 minutes
-    setInterval(getProgramFromTheServer, 5*60*1000 + 400);
+    setInterval(getProgramFromTheServer, 15*60*1000 + 400);
 
     /*
     setInterval(function(){
@@ -138,6 +138,9 @@ function initLiveTimeMaintainer(){
   var timeout = setTimeout(initLiveTimeMaintainer, t);
 }
 
+var mindh = null;
+var actHosszuShown = 0;
+
 /* RENDER ACTIVE PROGRAMS */
 function renderPrograms(){
   if(programData.program){
@@ -179,12 +182,13 @@ function renderPrograms(){
         programData.program[i].type = "folyamatban";
         programsToRender.push(programData.program[i]);
         //nowFound = true;
+        var timeDiff = Math.abs(endTime.getTime() - startTime.getTime());
+        var diffHours = Math.ceil(timeDiff / (1000 * 3600)); 
+        if (diffHours >  2){
+          programData.program[i].type = "hosszuprogram";
+          console.log("ez is: " + i);
+        }
         continue;
-      }
-
-      if  ((endTime.getHours()+(endTime.getMinutes()/60)-(startTime.getHours()+(startTime.getMinutes()/60))) >  2){
-        programData.program[i].type = "hosszuprogram";
-        console.log(i);
       }
 
       if(now < startTime && morePrograms > 0){
@@ -193,7 +197,7 @@ function renderPrograms(){
         programData.program[i].type = "hamarosan";
         }
         else {
-        programData.program[i].type = "később"
+        programData.program[i].type = "később";
         }
         programsToRender.push(programData.program[i]);
         //morePrograms--;
@@ -210,8 +214,21 @@ function renderPrograms(){
       while(actProgram.firstChild){
         actProgram.removeChild(actProgram.firstChild);
       }
+      var first = true;
       for(var i=0; i < programsToRender.length; i++){
-        actProgram.appendChild(programItemCreator(programsToRender[i].id, programsToRender[i].name, programsToRender[i].description, programsToRender[i].partner, programsToRender[i].location, new Date(programsToRender[i].start), new Date(programsToRender[i].end), false, programsToRender[i].type));
+        if (programsToRender[i].type === "hosszuprogram") {
+          var aaap = programItemCreator(programsToRender[i].id, programsToRender[i].name, programsToRender[i].description, programsToRender[i].partner, programsToRender[i].location, new Date(programsToRender[i].start), new Date(programsToRender[i].end), false, programsToRender[i].type);
+          if (first) {
+            first = false;
+            aaap.style.display = "block";
+          }
+          actProgram.appendChild(aaap);
+        }
+      }
+      for(var i=0; i < programsToRender.length; i++){
+        if (programsToRender[i].type !== "hosszuprogram") {
+          actProgram.appendChild(programItemCreator(programsToRender[i].id, programsToRender[i].name, programsToRender[i].description, programsToRender[i].partner, programsToRender[i].location, new Date(programsToRender[i].start), new Date(programsToRender[i].end), false, programsToRender[i].type));
+        }
       }
     }
     else{
@@ -225,6 +242,23 @@ function renderPrograms(){
     }
   }, 10*1000);
 }
+
+setInterval(function(){
+  var hosszus = document.getElementsByClassName("hosszuprogram-wrap");
+  console.log("Hosszus: " + hosszus.length);
+  actHosszuShown++;
+  if (actHosszuShown > hosszus.length - 1) {
+    actHosszuShown = 0;
+  }
+  for (var ii = 0; ii < hosszus.length; ii++) {
+    hosszus[ii].style.display = "none";
+  }
+  if (hosszus[actHosszuShown]) {
+    hosszus[actHosszuShown].style.display = "block";
+  }
+  mindh = hosszus;
+  console.log("showing " + actHosszuShown);
+}, 9*1000);
 
 /* PROGRAM ITEM ROW CREATEOR */
 function programItemCreator(id, title, description, partner, location, start, end, alert, type){
@@ -276,10 +310,14 @@ function programItemCreator(id, title, description, partner, location, start, en
   thirdBox.setAttribute("class", "col-md-4 col-xs-4");
 
 
- if(type=="folyamatban") {
+ if(type=="folyamatban" || type=="hosszuprogram") {
     timeStartNode.setAttribute("class", "programtime-start running");
     timeEndNode.setAttribute("class", "programtime-end running");
-     }
+  }
+
+  if(type=="hosszuprogram") {
+    mainNode.classList.add("hosszuprogram-wrap");
+  }  
 
 	var startShow = fillZeros(start.getHours()) + ":" + fillZeros(start.getMinutes());
 	var endShow = ((new Date(end-start)).getMinutes() === 1)?"":" - " + fillZeros(end.getHours()) + ":" + fillZeros(end.getMinutes());
@@ -309,19 +347,19 @@ function programItemCreator(id, title, description, partner, location, start, en
     if (parameter[0] == "nodescription" || parameter[1] == "nodescription" || parameter[2] == "nodescription" || parameter[3] == "nodescription"){
     }
     else if(parameter[0] == "fulldescription" || parameter[1] == "fulldescription" || parameter[2] == "fulldescription" || parameter[3] == "fulldescription"){
-      descriptionBox.setAttribute("class", "col-md-12 itemdescriptionfull")
+      descriptionBox.setAttribute("class", "col-md-12 itemdescriptionfull");
       secondBox.appendChild(descriptionBox);
       descriptionBox.innerHTML = descriptionShow;
       }
     else{
-      descriptionBox.setAttribute("class", "col-md-12 itemdescription")
+      descriptionBox.setAttribute("class", "col-md-12 itemdescription");
       secondBox.appendChild(descriptionBox);
       descriptionBox.appendChild(descriptionNode);
       descriptionNode.innerHTML = descriptionShow;
     }
   }
   else{
-    descriptionBox.setAttribute("class", "col-md-12 itemdescription")
+    descriptionBox.setAttribute("class", "col-md-12 itemdescription");
     secondBox.appendChild(descriptionBox);
     descriptionBox.appendChild(descriptionNode);
     descriptionNode.innerHTML = descriptionShow;

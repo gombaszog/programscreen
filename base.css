@@ -144,6 +144,16 @@ html,body{
 	background-color: rgba(192,192,192,0.8);
 }
 
+.hosszuprogram-wrap {
+  background-color: rgba(155, 185, 202, 0.9) !important;
+  display: none;
+}
+
+.hosszuprogram-wrap .programtime-start.running, .hosszuprogram-wrap .programtime-end.running {
+  animation: none;
+  color: #ee3a24 !important;
+}
+
 .typeshow{
   font-weight: normal;
   font-variant: small-caps;
